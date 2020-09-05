@@ -37,10 +37,13 @@ document.addEventListener('DOMContentLoaded', () => {
 // even listener para los select de busqueda
 marca.addEventListener('change', e => {
     datosBusqueda.marca = e.target.value;
+
     filtrarAuto();
 });
 year.addEventListener('change', e => {
-    datosBusqueda.year = e.target.value;
+    datosBusqueda.year = parseInt(e.target.value);
+
+    filtrarAuto();
 });
 minimo.addEventListener('change', e => {
     datosBusqueda.minimo = e.target.value;
@@ -86,13 +89,21 @@ function llenarSelect(){
 
 //funcion que filtra en base a la busqueda
 function filtrarAuto() {
-    const resultado = autos.filter( filtrarMarca );
+    const resultado = autos.filter( filtrarMarca ).filter( flitrarYear );
 }
 
 function filtrarMarca( auto ) {
     const { marca } = datosBusqueda;
     if ( marca ) {
         return auto.marca === marca;
+    }
+    return auto;
+}
+
+function flitrarYear (auto) {
+    const { year } = datosBusqueda;
+    if ( year ) {
+        return auto.year === year;
     }
     return auto;
 }
