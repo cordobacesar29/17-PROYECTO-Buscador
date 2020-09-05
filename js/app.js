@@ -37,6 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // even listener para los select de busqueda
 marca.addEventListener('change', e => {
     datosBusqueda.marca = e.target.value;
+    filtrarAuto();
 });
 year.addEventListener('change', e => {
     datosBusqueda.year = e.target.value;
@@ -65,14 +66,11 @@ function mostrarAutos() {
         const autoHTML = document.createElement('p');
 
         autoHTML.textContent = `
-            ${marca} ${modelo} - ${year} - ${puertas} Puertas - Transmisión: ${transmision} - Precio: ${precio} - color: ${color}
-
-        
+            ${marca} ${modelo} - ${year} - 
+            ${puertas} Puertas - Transmisión: ${transmision} - Precio: ${precio} - color: ${color}
         `;
-
         //insertar en el HTML
         resultado.appendChild(autoHTML)
-
     })
 }
 //genera los años del select
@@ -83,7 +81,18 @@ function llenarSelect(){
         opcion.value = i;
         opcion.textContent = i;
         year.appendChild(opcion);//agrega las opciones del año al select
+    }     
+}
 
-    } 
-    
+//funcion que filtra en base a la busqueda
+function filtrarAuto() {
+    const resultado = autos.filter( filtrarMarca );
+}
+
+function filtrarMarca( auto ) {
+    const { marca } = datosBusqueda;
+    if ( marca ) {
+        return auto.marca === marca;
+    }
+    return auto;
 }
