@@ -108,8 +108,18 @@ function llenarSelect(){
 function filtrarAuto() {
     const resultado = autos.filter( filtrarMarca ).filter( flitrarYear ).filter( filterMinimum ).filter( filterMaximum ).filter( filterDoors ).filter ( filterTransmition ).filter ( filterColor );
 
+    if ( resultado.length ) {
+        mostrarAutos(resultado);
+    } else {
+        notResult();
+    }
+}
 
-    mostrarAutos(resultado);
+function notResult() {
+    const notResult = document.createElement('div');
+    notResult.classList.add('alert','error');
+    notResult.textContent = 'No hay Resultado';
+    resultado.appendChild(notResult);
 }
 
 function filtrarMarca( auto ) {
